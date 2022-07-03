@@ -1,0 +1,26 @@
+﻿[
+  {
+    "id": 145,
+    "intervalMillis": 1000,
+    "matchTo": "長野",
+    "teamID": 79,
+    "turnMillis": 9000,
+    "turns": 15
+  },
+  {
+    "id": 148,
+    "intervalMillis": 1000,
+    "matchTo": "苫小牧",
+    "teamID": 295,
+    "turnMillis": 9000,
+    "turns": 15
+  },
+  {
+    "id": 149,
+    "intervalMillis": 1000,
+    "matchTo": "熊本(八代)",
+    "teamID": 297,
+    "turnMillis": 9000,
+    "turns": 15
+  }
+]

@@ -1,0 +1,35 @@
+{
+	"actions": [
+		{
+			"agentID": 1,
+			"type": "move",
+			"dx": 0,
+			"dy": -1
+		},
+		{
+			"agentID": 2,
+			"type": "move",
+			"dx": 0,
+			"dy": 1
+		},
+		{
+			"agentID": 3,
+			"type": "remove",
+			"dx": 0,
+			"dy": 1
+		}
+{
+			"agentID": 4,
+			"type": "set",
+			"dx": 8,
+			"dy": 9
+		},
+		{
+			"agentID": 5,
+			"type": "wait",
+			"dx": 0,
+			"dy": 0
+		}
+	]
+	
+}

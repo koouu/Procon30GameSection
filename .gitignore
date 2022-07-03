@@ -1,0 +1,12 @@
+*~
+a.out
+test-core
+test-core-int64
+.vs/
+.vscode/
+Debug/
+examples/
+picojson-master/
+picotest/
+Release/
+x64/

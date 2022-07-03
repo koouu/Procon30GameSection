@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "procon30game", "procon30game.vcxproj", "{41A3A131-A301-4650-8C0C-57D95976EA6E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Debug|x64.ActiveCfg = Debug|x64
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Debug|x64.Build.0 = Debug|x64
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Debug|x86.ActiveCfg = Debug|Win32
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Debug|x86.Build.0 = Debug|Win32
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Release|x64.ActiveCfg = Release|x64
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Release|x64.Build.0 = Release|x64
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Release|x86.ActiveCfg = Release|Win32
+		{41A3A131-A301-4650-8C0C-57D95976EA6E}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DF536AD-CD48-435E-993C-AC88E7852DC0}
+	EndGlobalSection
+EndGlobal
