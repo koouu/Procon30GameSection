@@ -181,6 +181,8 @@ void DrawManager::drawTime()
 		"現在時間 : %d秒", (time(NULL)-database.startedAtUnixTime)%((database.intervalMillis+database.turnMillis) / 1000));
 }
 
+
+
 void DrawManager::drawTurn()
 {
 }
@@ -257,18 +259,30 @@ void DrawManager::drawState(string argolithmName)
 
 }
 
-void DrawManager::drawOperatingAgent(int teamID, int agentID)
+void DrawManager::drawOperatingAgent(int teamID, int inputnum,bool player)
 {
 	int a = database.teams[1].agents[database.teams[1].agents.size() - 1].agentID;
-	if (teamID == database.teams[1].teamID && agentID > a) {
+	if (teamID == database.teams[1].teamID && inputnum > database.teams[1].agents.size()*2) {
 		DrawFormatString(800, 300, red, "Enterで入力完了");
 		DrawFormatString(800, 330, red, "Bキーで入力リセット");
-	}else if(teamID == database.teams[1].teamID){
-		DrawFormatString(800, 300, blue, "AI入力");
+	}else if(!player){
+		DrawFormatString(800, 300, teamID == database.teams[1].teamID? blue:red, "AI入力");
 	}
 	else {
-		DrawFormatString(800, 300, red, "操作エージェント");
-		DrawFormatString(800, 330, red, "チーム%d : エージェント%d", teamID, agentID);
+		DrawFormatString(800, 300, teamID == database.teams[1].teamID ? blue : red, "操作エージェント");
+		DrawFormatString(800, 330, teamID == database.teams[1].teamID ? blue : red, "チーム%d : エージェント%d", teamID, (inputnum-1)% database.teams[1].agents.size()+1);
+	}
+	
+}
+
+
+void DrawManager::drawResult(int winner)
+{
+	if (winner == -1) {
+		DrawFormatString(800, 300,green, "引き分け");
+	}
+	else {
+		DrawFormatString(800, 300, winner == database.teams[1].teamID ? blue : red, "チーム%dの勝利", winner);
 	}
 	
 }

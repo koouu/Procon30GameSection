@@ -133,12 +133,12 @@ EGameModeStatus PlayMode::Process()
 	
 
 	CKeyExport_S& key = CKeyExport_S::GetInstance();
-	if (database.turn > database.limit_turn) {
-		if (key.ExportKeyStateFrame(KEY_INPUT_RETURN) > 0||1) {
+	if (database.turn >= database.limit_turn) {
+		if (key.ExportKeyState(KEY_INPUT_RETURN) > 0) {
 			delete movemanager;
 			delete algorithm;
 			delete databasemanager;
-			return eAIGame;
+			return eSelectMode;
 		}
 	}
 	else {
@@ -163,8 +163,7 @@ EGameModeStatus PlayMode::Process()
 				}
 			}
 		}
-		//if (inputcount >= config.agentNum * 2&& key.ExportKeyState(KEY_INPUT_RETURN) > 0) {
-		if (inputcount >= config.agentNum * 2){
+		if (inputcount >= config.agentNum * 2&& key.ExportKeyState(KEY_INPUT_RETURN) > 0) {
 			int hoogeee;
 			hoogeee = 101010;
 			for (int i = 0; i < config.agentNum * 2; i++) {
@@ -217,7 +216,7 @@ EGameModeStatus PlayMode::Process()
 	}
 	
 	if (key.ExportKeyStateFrame(KEY_INPUT_ESCAPE) > 0) {
-		return eAIGame;
+		return eSelectMode;
 	}
 	return eContinue;
 }
@@ -230,7 +229,19 @@ bool PlayMode::Draw()
 	drawmanager.drawPoints();
 	drawmanager.drawAgent();
 	drawmanager.drawState("l—Í");
-	drawmanager.drawOperatingAgent((inputcount >= config.agentNum)+1, inputcount+1);
+	if (database.turn >= database.limit_turn) {
+		int winner=-1;
+		if (database.teams[0].tilePoint + database.teams[0].areaPoint > database.teams[1].tilePoint + database.teams[1].areaPoint) {
+			winner = database.teams[0].teamID;
+		}
+		if (database.teams[0].tilePoint + database.teams[0].areaPoint < database.teams[1].tilePoint + database.teams[1].areaPoint) {
+			winner = database.teams[1].teamID;
+		}
+		drawmanager.drawResult(winner);
+	}
+	else {
+		drawmanager.drawOperatingAgent((inputcount >= config.agentNum) + 1, inputcount + 1, playerData[inputcount / config.agentNum].player);
+	}
 	if(playerData[inputcount / config.agentNum].player&&inputcount<config.agentNum*2)
 	drawmanager.drawNowLine(inputcount, nowInput.direction);
 	drawmanager.drawLine(input);
@@ -411,18 +422,26 @@ void PlayMode::InputEnd() {
 				else {
 					nowInput.type = "move";
 				}*/
-				if (database.tiled[database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y][database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x + nowInput.direction.x]
-					== (!(inputcount / config.agentNum)) + 1)nowInput.type = "remove";
-				inputcount++;
-				input.push_back(nowInput);
-				nowInput = { 0, "move", {0, 0}, -1 };
+				bool move_flag = 1;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y < 0)move_flag=0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x + nowInput.direction.x < 0)move_flag = 0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y >= database.height)move_flag = 0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y >=database.width)move_flag = 0;
+				if (move_flag) {
+					if (database.tiled[database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y][database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x + nowInput.direction.x]
+						== (!(inputcount / config.agentNum)) + 1)nowInput.type = "remove";
+					inputcount++;
+					input.push_back(nowInput);
+					nowInput = { 0, "move", {0, 0}, -1 };
+				}
+				
 			}
 		}
 	}
 	else {
 		if (playerData[1].player) {
 			Input(1);
-			if (key.ExportKeyState(KEY_INPUT_RETURN) > 0 || 1){
+			if (key.ExportKeyState(KEY_INPUT_RETURN) > 0){
 				/*if (database.tiled[database.teams[1].agents[inputcount - config.agentNum].y]
 					[database.teams[1].agents[inputcount - config.agentNum].x] == database.teams[0].teamID) {
 					nowInput.type = "remove";
@@ -430,12 +449,18 @@ void PlayMode::InputEnd() {
 				else {
 					nowInput.type = "move";
 				}*/
-				database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum];
-				if (database.tiled[database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y+nowInput.direction.y][database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x+nowInput.direction.x]
-					== (!(inputcount / config.agentNum)) + 1)nowInput.type == "remove";
-				inputcount++;
-				input.push_back(nowInput);
-				nowInput = { 0, "move", {0, 0}, -1 };
+				bool move_flag = 1;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y < 0)move_flag = 0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x + nowInput.direction.x < 0)move_flag = 0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y >= database.height)move_flag = 0;
+				if (database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y >= database.width)move_flag = 0;
+				if (move_flag) {
+					if (database.tiled[database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].y + nowInput.direction.y][database.teams[inputcount / config.agentNum].agents[inputcount % config.agentNum].x + nowInput.direction.x]
+						== (!(inputcount / config.agentNum)) + 1)nowInput.type = "remove";
+					inputcount++;
+					input.push_back(nowInput);
+					nowInput = { 0, "move", {0, 0}, -1 };
+				}
 			}
 		}
 	}

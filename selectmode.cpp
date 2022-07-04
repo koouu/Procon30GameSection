@@ -21,7 +21,7 @@ SelectMode::~SelectMode()
 EGameModeStatus SelectMode::Process()
 {
 	CKeyExport_S& keyManager = CKeyExport_S::GetInstance();
-	const short columnMax = 6;
+	const short columnMax = 4;
 	bool isConf = false;
 	if (keyManager.ExportKeyStateFrame(KEY_INPUT_T) > 0) {
 		isConf = true;
@@ -89,8 +89,8 @@ EGameModeStatus SelectMode::Process()
 		case 0: return ePlayingGame;
 		case 1: return ePlayWithAI;
 		case 2: return eAIGame;
-		case 3: return eShowingReplay;
-		case 4: return eEnd;
+		case 3: return eEnd;
+		case 4: return eShowingReplay;
 		case 5: return eCompetition;
 		default: return eErrEnd;
 		}
@@ -115,12 +115,12 @@ bool SelectMode::Draw()
 	CKeyExport_S& keyManager = CKeyExport_S::GetInstance();
 	DxLib::DrawString(0, 0, "第30回全国高専プログラミングコンテスト競技部門 シュミレータ", 0xFFFFFF);
 	DxLib::DrawString(0, 40, "モードを選択してください:", 0x0000FF);
-	DxLib::DrawString(30, 90, "有人プレイ開始", 0xAA0000);
-	DxLib::DrawString(30, 120, "AI同士", 0xFFFF00);
-	DxLib::DrawString(30, 150, "AI同士で対戦", 0xAA0000);
-	DxLib::DrawString(30, 180, "リプレイ閲覧（未完成）", 0xAA0000);
-	DxLib::DrawString(30, 210, "終了", 0xAA0000);
-    DxLib::DrawString(30, 240, "大会用", 0xAA0000);
+	DxLib::DrawString(30, 90, "有人プレイ開始", 0xFFFFFF);
+	DxLib::DrawString(30, 120, "AI同士", 0xFFFFFF);
+	DxLib::DrawString(30, 150, "AI同士で対戦", 0xFFFFFF);
+	DxLib::DrawString(30, 180, "終了", 0xFFFFFF);
+	//DxLib::DrawString(30, 210, "リプレイ閲覧（未完成）", 0xAA0000);
+    //DxLib::DrawString(30, 240, "大会用", 0xAA0000);
 
 
 	DxLib::DrawString(0, 90 + 30 * arrow, "→", 0xFFFF00);

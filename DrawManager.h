@@ -20,7 +20,7 @@ public:
 	void drawFrame();
 	void drawPoints();
 	void drawState(string argolithmName);
-	void drawOperatingAgent(int teamID, int AgentID);
+	void drawOperatingAgent(int teamID, int AgentID,bool player);
 	void drawAgent();
 	void drawTurn();
 	void drawLine(vector<Action> moving_point);
@@ -28,6 +28,7 @@ public:
 	void drawCompetition(ECompetitionStatus status);
 	void drawLine2(int teamID, vector<Action> moving_point,int select_agent);
 	void drawTime();
+	void drawResult(int winner);
 
 };
 

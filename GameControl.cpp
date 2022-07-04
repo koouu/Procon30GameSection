@@ -37,8 +37,8 @@ bool GameControl::ChangeMode(bool& Ans, EGameModeStatus pDest) {
 	delete m_pNowMode;	m_pNowMode = nullptr;
 	switch (pDest) {
 	case eSelectMode:		m_pNowMode = new SelectMode(config); break;
-	case ePlayingGame:		m_pNowMode = new PlayMode(0,config); break;
-	case ePlayWithAI:		m_pNowMode = new PlayMode(0,config); break;
+	case ePlayingGame:		m_pNowMode = new PlayMode(2,config); break;
+	case ePlayWithAI:		m_pNowMode = new PlayMode(1,config); break;
 	case eAIGame:			m_pNowMode = new PlayMode(0,config); break;
 	case eCompetition:      m_pNowMode = new CompetitionMode(config.turnNum); break;
 	case eShowingReplay:	//m_pNowMode = new ShowingReplay; break;
